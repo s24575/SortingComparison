@@ -9,7 +9,8 @@ constexpr int N = 1000000;
 auto rng = std::default_random_engine{};
 
 std::vector<int> get_random_array() {
-    std::vector<int> v;
+    static std::vector<int> v;
+    if (v.size()) return v;
     v.reserve(N);
     for (int i = 0; i < N; ++i) {
         v.push_back(i);
@@ -178,6 +179,7 @@ void mergesort_test() {
     auto stop = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double, std::milli> time = stop - start;
     printf("%.2fms - mergesort random\n", time.count());
+
     // sorted
     v = get_sorted_array();
     start = std::chrono::high_resolution_clock::now();
